@@ -37,7 +37,7 @@ Principais tecnologias utilizadas no desenvolvimento do projeto:
 - [Webpack](https://webpack.js.org/)
 
 
-## 💻 Executando o WatchME<a name="executando"></a>
+## 💻 Executando o Explorer Github<a name="executando"></a>
 
 ### Pré-requisitos
 
