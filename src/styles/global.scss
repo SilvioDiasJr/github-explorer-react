@@ -1,10 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;900&display=swap');
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body{
-  font: 16px "Helvetica Neue", Arial, sans-serif;
+body, select, input, a, button {
+  font: 16px "Roboto", Arial, sans-serif;
   color: #121214;
+}
+
+body{
+  background: linear-gradient(45deg, #00385a, #ced2d6);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
 }
