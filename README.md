@@ -14,9 +14,9 @@
 
 
 <p align="center">
- <img src="https://img.shields.io/github/license/SilvioDiasJr/desafio-complementar01-trilha-reactjs?style=plastic" alt="License" >
-<img src="https://img.shields.io/github/stars/SilvioDiasJr/desafio-complementar01-trilha-reactjs" alt="Stars"> 
-<img src="https://img.shields.io/github/forks/SilvioDiasJr/desafio-complementar01-trilha-reactjs" alt="Forks">
+ <img src="https://img.shields.io/github/license/SilvioDiasJr/github-explorer-react" alt="License" >
+<img src="https://img.shields.io/github/stars/SilvioDiasJr/github-explorer-react" alt="Stars"> 
+<img src="https://img.shields.io/github/stars/SilvioDiasJr/github-explorer-react" alt="Forks">
 </p>
 
 <p align="center">
