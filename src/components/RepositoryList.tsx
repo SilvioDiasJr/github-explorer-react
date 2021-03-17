@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { RepositoryItem } from "./RepositoryItem";
-import { FaSearch } from 'react-icons/fa'
+import { FaGithub, FaSearch } from 'react-icons/fa'
 
 import '../styles/repositories.scss'
 
@@ -39,67 +39,70 @@ export function RepositoryList() {
   }
 
   useEffect(() => {
-    fetch(`${user.repos_url}?page=${page}&per_page=5`)
-      .then((response) => response.json())
-      .then(data => setRepositories(data))
-    setRepositories([])
+    if (user.repos_url) {
+      fetch(`${user.repos_url}?page=${page}&per_page=5`)
+        .then((response) => response.json())
+        .then(data => setRepositories(data))
+      setRepositories([])
+    }
   }, [!isFetchError && user.repos_url, page])
 
-  function handlePage(action: string){
+  function handlePage(action: string) {
     setPage(action === 'back' ? page - 1 : page + 1)
   }
 
   return (
     <div className="container">
       <header>
+        <div className="title">
+          <FaGithub className="icon" />
+          <h1>Explorer GitHub</h1>
+        </div>
         <div className="content-search">
-          <select
-            value={changeSelect}
-            onChange={(e) => setChangeSelect(e.target.value)}
-          >
-            <option value="orgs">Orgs</option>
-            <option value="users">Users</option>
-          </select>
+          <label>
+            Pesquise por seu usuário ou organização preferida para listar
+            os repositórios
+          </label>
+          <div className="search">
+            <select
+              value={changeSelect}
+              onChange={(e) => setChangeSelect(e.target.value)}
+            >
+              <option value="orgs">Org</option>
+              <option value="users">Usuário</option>
+            </select>
 
-          <input
-            type="text"
-            value={changeText}
-            onChange={(e) => setChangeText(e.target.value)}
-          />
-          <button onClick={searchUsers}>
-            <FaSearch />
-            <span>Buscar</span>
-          </button>
+            <input
+              type="text"
+              value={changeText}
+              onChange={(e) => setChangeText(e.target.value)}
+            />
+            <button onClick={searchUsers}>
+              <FaSearch />
+            </button>
+          </div>
         </div>
       </header>
 
-      <section className='repository-list'>
-        {isFetchError ?
-          <span>Nenhum repositório encontrado!!</span>
-          :
+      {isFetchError ?
+        <span>Nenhum repositório encontrado!!</span>
+        :
+        <section className='content-info'>
           <>
-            <div className="card-usuer">
-              <div className="info-user">
+            <div className="card-user">
+              <div className="avatar-user">
                 <img src={user.avatar_url} alt={user.name} />
-                <span>{user.name}</span>
               </div>
               <div className="description-user">
-                {changeSelect === 'users' ?
-                  <>
-                    <h1>Bio</h1>
-                    <p>{user.bio}</p>
-                  </>
-                  :
-                  <>
-                    <h1>Descrição</h1>
-                    <p>{user.description}</p>
-                  </>
-                }
+                <span>{user.name}</span>
+                <p>{user.bio}</p>
+                <p>{user.description}</p>
               </div>
             </div>
 
-            <h1>Lista de repositórios</h1>
-            <div className="pagination-repositories">
+            <div className="repository-list">
+              <h1>Lista de repositórios</h1>
+              <div className="pagination-repositories">
                 <button
                   type="button"
                   disabled={page < 2}
@@ -109,23 +112,24 @@ export function RepositoryList() {
                 </button>
                 <button
                   type="button"
-                  disabled={page > repositories.length}
+                  disabled={page > repositories.length }
                   onClick={() => handlePage('next')}
                 >
                   Próxima
                 </button>
+              </div>
+              <ul>
+                {repositories.map(repository => (
+                  <RepositoryItem
+                    key={repository.name}
+                    repository={repository}
+                  />
+                ))}
+              </ul>
             </div>
-            <ul>
-              {repositories.map(repository => (
-                <RepositoryItem
-                  key={repository.name}
-                  repository={repository}
-                />
-              ))}
-            </ul>
           </>
-        }
-      </section>
+        </section>
+      }
     </div>
   )
 }
